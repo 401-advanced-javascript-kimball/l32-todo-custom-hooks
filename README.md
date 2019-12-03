@@ -1,27 +1,45 @@
-# l32-todo-custom-hooks
+# LAB - 32-todo-custom-hooks
+
+## Todo - Custom Hooks
+
+### Author: Jonathan Kimball
+
+### Links and Resources
 
 * [submission PR](https://github.com/401-advanced-javascript-kimball/l32-todo-custom-hooks/pull/1)
 * [travis](https://travis-ci.com/401-advanced-javascript-kimball/l32-todo-custom-hooks)
-
-# LAB - 
-
-## Project Name
-
-### Author: Student/Group Name
-
-### Links and Resources
-* [submission PR](http://xyz.com)
-* [travis](http://xyz.com)
 * [back-end](http://xyz.com) (when applicable)
 * [front-end](http://xyz.com) (when applicable)
 
 #### Documentation
+
 * [api docs](http://xyz.com) (API servers)
 * [jsdoc](http://xyz.com) (Server assignments)
 * [styleguide](http://xyz.com) (React assignments)
 
 ### Modules
-#### `modulename.js`
+
+#### `src/index.js`
+
+#### `src/app.js`
+
+#### `src/components/if/index.js`
+
+#### `src/components/modal/package.json`
+
+#### `src/components/modal/README.md`
+
+#### `src/components/modal/index.js`
+
+#### `src/components/modal/modal.module.scss`
+
+#### `src/components/todo/todo.js`
+
+#### `src/components/todo/todo.scss`
+
+#### `src/components/todo/todo-connected.js`
+
+
 ##### Exported Values and Methods
 
 ###### `foo(thing) -> string`

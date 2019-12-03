@@ -1,8 +1,9 @@
-import React from "react";
-import { When } from "../if";
-import Modal from "../modal";
+/* eslint-disable require-jsdoc */
+import React from 'react';
+import {When} from '../if';
+import Modal from '../modal';
 
-import "./todo.scss";
+import './todo.scss';
 
 const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
@@ -13,82 +14,91 @@ class ToDo extends React.Component {
       todoList: [],
       item: {},
       showDetails: false,
-      details: {}
+      details: {},
     };
   }
 
-  handleInputChange = e => {
-    this.setState({ item: {...this.state.item, [e.target.name]: e.target.value} });
+  handleInputChange = (e) => {
+    this.setState({item: {...this.state.item, [e.target.name]: e.target.value}});
   };
 
   callAPI = (url, method='get', body, handler, errorHandler) => {
-
     return fetch(url, {
       method: method,
       mode: 'cors',
       cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
       body: body ? JSON.stringify(body) : undefined,
     })
-    .then(response => response.json())
-    .then(data => typeof handler === "function" ? handler(data) : null )
-    .catch( (e) => typeof errorHandler === "function" ? errorHandler(e) : console.error(e)  );
+        .then((response) => response.json())
+        .then((data) => typeof handler === 'function' ?
+        handler(data) : null)
+        .catch((e) =>
+          typeof errorHandler === 'function' ?
+            errorHandler(e) : console.error(e));
   };
 
   addItem = (e) => {
-
     e.preventDefault();
     e.target.reset();
 
-    const _updateState = newItem =>
+    const _updateState = (newItem) =>
       this.setState({
-        todoList: [...this.state.todoList, newItem]
+        todoList: [...this.state.todoList, newItem],
       });
 
     this.callAPI( todoAPI, 'POST', this.state.item, _updateState );
-
   };
 
-  deleteItem = id => {
-
+  deleteItem = (id) => {
     const _updateState = (results) =>
       this.setState({
-        todoList: this.state.todoList.filter(item => item._id !== id)
+        todoList: this.state.todoList.filter((item) => item._id !== id),
       });
 
     this.callAPI( `${todoAPI}/${id}`, 'DELETE', undefined, _updateState );
-
   };
 
-  saveItem = updatedItem => {
-
+  /**
+   * Update
+   * 
+   * @this {x}
+   * @param {*} updatedItem
+   */
+  saveItem = (updatedItem) => {
+    /**
+     * update State
+     * 
+     * @this {x}
+     * @param {*} newItem
+     * @return {*}
+     */
     const _updateState = (newItem) =>
       this.setState({
-        todoList: this.state.todoList.map(item =>
-          item._id === newItem._id ? newItem : item
-        )
+        todoList: this.state.todoList.map((item) =>
+          item._id === newItem._id ? newItem : item,
+        ),
       });
 
     this.callAPI( `${todoAPI}/${updatedItem.id}`, 'PUT', updatedItem, _updateState );
-
   };
 
-  toggleComplete = id => {
-    let item = this.state.todoList.filter(i => i._id === id)[0] || {};
+  toggleComplete = (id) => {
+    const item = this.state.todoList.filter((i) => i._id === id)[0] || {};
     if (item._id) {
       item.complete = !item.complete;
       this.saveItem(item);
     }
   };
 
-  toggleDetails = id => {
-    let showDetails = ! this.state.showDetails;
-    let details = this.state.todoList.filter( item => item._id === id )[0] || {}
+  toggleDetails = (id) => {
+    const showDetails = ! this.state.showDetails;
+    const details = this.state.todoList.filter( (item) => item._id === id )[0] || {};
     this.setState({details, showDetails});
   }
 
   getTodoItems = () => {
-    const _updateState = data => this.setState({ todoList: data.results });
+    const _updateState = (data) => this.setState({todoList: data.results});
     this.callAPI( todoAPI, 'GET', undefined, _updateState );
   };
 
@@ -96,14 +106,14 @@ class ToDo extends React.Component {
     this.getTodoItems();
   }
 
+  // eslint-disable-next-line require-jsdoc
   render() {
-
     return (
       <>
         <header>
           <h2>
             There are
-            {this.state.todoList.filter( item => !item.complete ).length}
+            {this.state.todoList.filter( (item) => !item.complete ).length}
             Items To Complete
           </h2>
         </header>
@@ -139,14 +149,14 @@ class ToDo extends React.Component {
 
           <div>
             <ul>
-              { this.state.todoList.map(item => (
+              { this.state.todoList.map((item) => (
                 <li
                   className={`complete-${item.complete.toString()}`}
                   key={item._id}
                 >
-              <span onClick={() => this.toggleComplete(item._id)}>
-                {item.text}
-              </span>
+                  <span onClick={() => this.toggleComplete(item._id)}>
+                    {item.text}
+                  </span>
                   <button onClick={() => this.toggleDetails(item._id)}>
                     Details
                   </button>
